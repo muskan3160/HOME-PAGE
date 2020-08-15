@@ -1,22 +1,20 @@
-const navSlide = () => {
-    const burger = document.querySelector('.burger');
-    const nav = document.querySelector('.nav-links');
-    const navLinks = document.querySelectorAll('.nav-links li');
-    // Toggle Nav
-    burger.addEventListener('click', () => {
-        nav.classList.toggle('nav-active');
+$(function () {
+    menu = $('nav ul');
 
-        // Animate links
-        navLinks.forEach((link, index) => {
-            if (link.style.animation) {
-                link.style.animation = "";
-            } else {
-                link.style.animation = `navLinkFade 0.5s ease forwards ${index / 7 + 0.5}s`;
-            }
-        });
-        //Burger Animation
-        burger.classList.toggle('toggle');
+    $('#openup').on('click', function (e) {
+        e.preventDefault(); menu.slideToggle();
     });
-}
 
-navSlide();
+    $(window).resize(function () {
+        var w = $(this).width(); if (w > 480 && menu.is(':hidden')) {
+            menu.removeAttr('style');
+        }
+    });
+
+    $('nav li').on('click', function (e) {
+        var w = $(window).width(); if (w < 480) {
+            menu.slideToggle();
+        }
+    });
+    $('.open-menu').height($(window).height());
+});
